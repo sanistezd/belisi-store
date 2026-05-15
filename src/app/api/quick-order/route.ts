@@ -31,13 +31,13 @@ export async function POST(req: Request) {
     const orderTypeLabel = isFullCheckout ? 'Повне замовлення' : 'Швидке замовлення';
     const crmComment = `${final_strings.join(', ')}\n(${orderTypeLabel} з React)\nКлієнт: ${orderComment || ''}`;
 
-    // Формуємо FormData для CRM
-    const formData = new URLSearchParams();
+    // Формуємо FormData для CRM (аналог PHP cURL multipart/form-data)
+    const formData = new FormData();
     formData.append('key', CRM_KEY);
     formData.append('order_id', Math.floor(Math.random() * 1000000).toString());
     formData.append('country', 'UA');
     formData.append('office', '1');
-    formData.append('products', serialize(products_list));
+    formData.append('products', encodeURIComponent(serialize(products_list)));
     formData.append('bayer_name', name);
     formData.append('phone', phone);
     if (email) formData.append('email', email);
@@ -52,13 +52,11 @@ export async function POST(req: Request) {
 
     // Відправка в CRM
     try {
-      const crmUrlHttps = CRM_URL.replace('http://', 'https://'); // LP-CRM may drop POST body on HTTP -> HTTPS redirect
+      const crmUrlHttps = CRM_URL.replace('http://', 'https://'); 
       const crmResponse = await fetch(crmUrlHttps, {
         method: 'POST',
-        body: formData,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+        body: formData
+        // При використанні FormData (multipart/form-data) Content-Type не вказується, fetch додасть його сам з boundary
       });
       const crmText = await crmResponse.text();
       console.log('CRM Response:', crmText);
