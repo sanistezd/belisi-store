@@ -50,6 +50,7 @@ export async function POST(req: Request) {
     }
     formData.append('comment', crmComment);
 
+    let crmDebugText = "No response";
     // Відправка в CRM
     try {
       const crmUrlHttps = CRM_URL.replace('http://', 'https://'); 
@@ -59,8 +60,10 @@ export async function POST(req: Request) {
         // При використанні FormData (multipart/form-data) Content-Type не вказується, fetch додасть його сам з boundary
       });
       const crmText = await crmResponse.text();
+      crmDebugText = crmText;
       console.log('CRM Response:', crmText);
-    } catch (crmErr) {
+    } catch (crmErr: any) {
+      crmDebugText = "Error: " + crmErr.message;
       console.error('CRM Fetch Error:', crmErr);
     }
 
@@ -76,7 +79,10 @@ export async function POST(req: Request) {
     tgText += `💰 <b>Сума:</b> ${totalPrice} грн\n` +
       `📦 <b>Товари:</b>\n${final_strings.join('\n')}`;
       
-    if (orderComment) tgText += `\n💬 <b>Коментар:</b> ${orderComment}`;
+    if (orderComment) tgText += `\n💬 <b>Коментар:</b> ${orderComment}\n`;
+    
+    // ДОДАЄМО ВІДПОВІДЬ CRM В ТЕЛЕГРАМ ДЛЯ ДЕБАГУ
+    tgText += `\n🤖 <b>Відповідь від CRM:</b>\n<code>${crmDebugText}</code>`;
 
     const tgUrl = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;
     await fetch(tgUrl, {
