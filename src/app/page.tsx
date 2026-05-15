@@ -1,95 +1,81 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { defaultProducts } from "@/data/products";
+import ProductCard from "@/components/ProductCard";
+import PromoBanner from "@/components/PromoBanner";
 
 export default function Home() {
+  const caviarProducts = defaultProducts.filter(p => p.category !== "promo");
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div>
+      {/* ========== HERO ========== */}
+      <section className="premium-hero">
+        <div className="premium-hero-inner">
+          <div className="premium-hero-content">
+            <h1 className="premium-hero-title">
+              <span>Преміальна Ікра· Свіжий Вилов 2026</span>
+            </h1>
+            <p className="premium-hero-desc">
+              6 видів ікри найвищої якості. Доставка Новою Поштою та Укрпоштою 1-2 дні. Оплата при отриманні — жодних передоплат.
+            </p>
+            <a href="#products" className="button" style={{ display: "inline-block" }}>
+              Перейти до каталогу
+            </a>
+          </div>
+          <div className="premium-hero-image">
+            <img src="/images/belisi-logo.jpg" alt="Преміальна ікра" style={{ maxWidth: '100%', borderRadius: '50%', boxShadow: '0 10px 40px rgba(0,0,0,0.15)' }} />
+          </div>
         </div>
+      </section>
+
+      {/* ========== TRUST BAR ========== */}
+      <section className="trust-bar">
+        <div className="trust-bar-inner">
+          <div className="trust-bar-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <polyline points="9 12 11 14 15 10" />
+            </svg>
+            <strong>Оплата при отриманні</strong>
+          </div>
+          <div className="trust-bar-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            <strong>Сертифікована якість</strong>
+          </div>
+          <div className="trust-bar-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            <strong>Підтримка 9:00–20:00</strong>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== PROMO 3+1 ========== */}
+      <div className="container">
+        <PromoBanner />
       </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {/* ========== PRODUCT GRID ========== */}
+      <section id="products" className="storefront-product-section woocommerce">
+        <h2 className="section-title">Наш Асортимент</h2>
+        <p className="section-subtitle">Оберіть улюблений сорт ікри — ми доставимо її свіжою</p>
+        
+        <ul className="products">
+          {caviarProducts.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </ul>
+      </section>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      {/* ========== CERTIFICATE ========== */}
+      <section className="certificate-section">
+        <h2 className="section-title">Сертифікат Якості</h2>
+        <p className="section-subtitle">Наша продукція повністю сертифікована та відповідає найвищим стандартам</p>
+        <img src="/images/certificate.jpg" alt="Сертифікат якості Белісі" />
+      </section>
+    </div>
   );
 }

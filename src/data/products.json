@@ -1,0 +1,79 @@
+[
+  {
+    "id": "caviar-osetr",
+    "sku": "9",
+    "name": "Ікра Осетра 500г",
+    "price": 529,
+    "oldPrice": 582,
+    "image": "/images/osetr.png",
+    "description": "Справжня чорна ікра осетра в преміальній скляній банці. Ніжний смак розкоші.",
+    "category": "glass",
+    "inStock": true
+  },
+  {
+    "id": "caviar-veslonis",
+    "sku": "9",
+    "name": "Ікра Веслоноса 500г",
+    "price": 499,
+    "oldPrice": 549,
+    "image": "/images/veslonis.png",
+    "description": "Чорна ікра веслоноса. Витончений смак, який оцінять справжні гурмани.",
+    "category": "glass",
+    "inStock": true
+  },
+  {
+    "id": "caviar-gorbusha",
+    "sku": "8",
+    "name": "Ікра Горбуші 500г",
+    "price": 399,
+    "oldPrice": 439,
+    "image": "/images/gorbusha.png",
+    "description": "Класична червона ікра горбуші. Ідеально підходить для святкового столу.",
+    "category": "glass",
+    "inStock": true
+  },
+  {
+    "id": "caviar-keta",
+    "sku": "6",
+    "name": "Ікра Кети 500г",
+    "price": 479,
+    "oldPrice": 527,
+    "image": "/images/keta.png",
+    "description": "Червона ікра кети з великими ікринками. Насичений смак та неймовірний аромат.",
+    "category": "glass",
+    "inStock": true
+  },
+  {
+    "id": "caviar-schuka",
+    "sku": "5",
+    "name": "Ікра Щуки 500г",
+    "price": 379,
+    "oldPrice": 417,
+    "image": "/images/schuka.png",
+    "description": "Традиційна ікра щуки. Чудова закуска з м'яким делікатним смаком.",
+    "category": "glass",
+    "inStock": true
+  },
+  {
+    "id": "caviar-losos",
+    "sku": "7",
+    "name": "Ікра Лосося 500г",
+    "price": 459,
+    "oldPrice": 505,
+    "image": "/images/losos.png",
+    "description": "Преміальна ікра лосося. Ніжна текстура та багатий смак, що тане в роті.",
+    "category": "glass",
+    "inStock": true
+  },
+  {
+    "id": "promo-set-3-1",
+    "sku": "45",
+    "name": "Подарунковий набір: 3+1",
+    "price": 998,
+    "image": "/images/promo-set-3-plus-1.png",
+    "description": "Купуйте три баночки будь-якої ікри та отримайте четверту в подарунок!",
+    "category": "promo",
+    "inStock": true,
+    "oldPrice": 1996
+  }
+]

@@ -1,0 +1,198 @@
+/* Additional CSS for Belisi React App to match WP */
+
+/* ==========================================================
+   HERO SECTION
+   ========================================================== */
+.premium-hero {
+    background: var(--bg-warm);
+    padding: 80px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.premium-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.premium-hero-content {
+    flex: 1;
+}
+
+.premium-hero-title {
+    font-size: 3.2rem;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: var(--text);
+}
+
+.premium-hero-title span {
+    background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.premium-hero-desc {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    max-width: 90%;
+}
+
+.premium-hero-image {
+    flex: 1;
+    text-align: center;
+}
+
+.premium-hero-image img {
+    max-width: 100%;
+    border-radius: 50%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 768px) {
+    .premium-hero-inner {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 40px;
+    }
+    .premium-hero-title {
+        font-size: 2rem;
+    }
+    .premium-hero-desc {
+        max-width: 100%;
+    }
+}
+
+/* ==========================================================
+   TRUST BAR
+   ========================================================== */
+.trust-bar {
+    background: var(--bg);
+    padding: 30px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.trust-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.trust-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text);
+}
+
+.trust-bar-item svg {
+    color: var(--primary);
+}
+
+.trust-bar-item strong {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .trust-bar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 20px;
+    }
+}
+
+/* ==========================================================
+   PROMO BANNER 3+1
+   ========================================================== */
+.promo-banner {
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    margin: 50px auto;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.promo-banner-content {
+    flex: 1;
+}
+
+.promo-banner-image {
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .promo-banner {
+        flex-direction: column;
+        padding: 30px 20px;
+    }
+}
+
+/* ==========================================================
+   PRODUCTS GRID
+   ========================================================== */
+.storefront-product-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+@media (max-width: 900px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .products-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+}
+
+/* ==========================================================
+   CERTIFICATE
+   ========================================================== */
+.certificate-section {
+    max-width: 700px;
+    margin: 0 auto 60px;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.certificate-section img {
+    max-width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}

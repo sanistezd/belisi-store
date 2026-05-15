@@ -1,0 +1,18 @@
+[
+  {
+    "id": "usr-admin-1",
+    "name": "Belisi Admin",
+    "email": "admin@belisi.store",
+    "passwordHash": "$2b$10$zs1Tm1ula4LRXqbgXxUiX.GEPA3MrqIjX6zsFPwQWqFa4HcA6eYZe",
+    "role": "admin",
+    "registeredAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "usr-3lgyqrkb3",
+    "name": "sanya",
+    "email": "f@gmail.com",
+    "passwordHash": "$2b$10$zs1Tm1ula4LRXqbgXxUiX.GEPA3MrqIjX6zsFPwQWqFa4HcA6eYZe",
+    "role": "customer",
+    "registeredAt": "2026-05-13T09:08:46.578Z"
+  }
+]
