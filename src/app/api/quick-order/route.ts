@@ -71,7 +71,8 @@ export async function POST(req: Request) {
         }
       });
       const crmText = await crmResponse.text();
-      crmDebugMessage = `Status: ${crmResponse.status}, Body: ${crmText}`;
+      const keyDebug = CRM_KEY ? `${CRM_KEY.substring(0, 4)}...` : "ПУСТОЙ!";
+      crmDebugMessage = `Key: ${keyDebug} | Status: ${crmResponse.status}, Body: ${crmText}`;
       console.log('CRM Response:', crmText);
     } catch (crmErr: any) {
       crmDebugMessage = `Fetch Error: ${crmErr.message}`;
