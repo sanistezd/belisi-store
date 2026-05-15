@@ -30,14 +30,14 @@ export default function ProductCard({ product }: { product: Product }) {
       onClick={() => router.push(`/product/${product.id}`)}
       style={{ cursor: "pointer", display: "flex", flexDirection: "column", height: "100%" }}
     >
-      <a href={`/product/${product.id}`} className="woocommerce-LoopProduct-link woocommerce-loop-product__link" style={{ textDecoration: 'none', display: 'block' }} onClick={e => e.preventDefault()}>
+      <a href={`/product/${product.id}`} className="woocommerce-LoopProduct-link woocommerce-loop-product__link" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', flex: 1 }} onClick={e => e.preventDefault()}>
         <img 
           src={product.image} 
           alt={product.name} 
           className="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
         />
-        <h2 className="woocommerce-loop-product__title">{product.name}</h2>
-        <span className="price">
+        <h2 className="woocommerce-loop-product__title" style={{ flexGrow: 1 }}>{product.name}</h2>
+        <span className="price" style={{ marginTop: 'auto' }}>
           {product.oldPrice && (
             <del aria-hidden="true" style={{ opacity: 0.5, marginRight: '8px', fontSize: '0.9em' }}>
               <span className="woocommerce-Price-amount amount">
@@ -59,8 +59,8 @@ export default function ProductCard({ product }: { product: Product }) {
           value={packaging} 
           onChange={(e) => setPackaging(e.target.value)}
         >
-          <option value="vacuum">Вакуум (стандарт)</option>
-          <option value="glass">Скляна банка (+50 грн)</option>
+          <option value="vacuum">Вакуум (станд.)</option>
+          <option value="glass">Скло (+50 ₴)</option>
         </select>
       </div>
 

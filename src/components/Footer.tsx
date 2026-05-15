@@ -16,7 +16,7 @@ export default function Footer() {
         <div>
           <h3 style={{ color: 'white', marginBottom: '20px', fontSize: '1.5rem', letterSpacing: '2px' }}>BELISI</h3>
           <p style={{ color: 'rgba(255,255,255,0.9)', maxWidth: '300px', lineHeight: '1.6' }}>
-            Справжня чорна ікра найвищого ґатунку. 
+            Преміальна чорна ікра найвищого ґатунку. 
             Швидка доставка по Україні з дотриманням температурного режиму.
           </p>
         </div>

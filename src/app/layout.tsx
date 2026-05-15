@@ -8,7 +8,7 @@ import ContactWidget from "@/components/ContactWidget";
 
 export const metadata: Metadata = {
   title: "Belisi Caviar - Преміальна чорна ікра",
-  description: "Купити справжню чорну ікру осетра. Швидка доставка по Україні.",
+  description: "Купити преміальну чорну ікру осетра. Швидка доставка по Україні.",
 };
 
 export default function RootLayout({
