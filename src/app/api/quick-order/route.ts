@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     formData.append('order_id', Math.floor(Math.random() * 1000000).toString());
     formData.append('country', 'UA');
     formData.append('office', '1');
-    formData.append('products', encodeURIComponent(serialize(products_list)));
+    formData.append('products', serialize(products_list));
     formData.append('bayer_name', name);
     formData.append('phone', phone);
     if (email) formData.append('email', email);
@@ -51,13 +51,20 @@ export async function POST(req: Request) {
     formData.append('comment', crmComment);
 
     // Відправка в CRM
-    await fetch(CRM_URL, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+    try {
+      const crmUrlHttps = CRM_URL.replace('http://', 'https://'); // LP-CRM may drop POST body on HTTP -> HTTPS redirect
+      const crmResponse = await fetch(crmUrlHttps, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      const crmText = await crmResponse.text();
+      console.log('CRM Response:', crmText);
+    } catch (crmErr) {
+      console.error('CRM Fetch Error:', crmErr);
+    }
 
     // 2. Відправка в Telegram
     let tgText = `<b>🛒 ${isFullCheckout ? 'НОВЕ ЗАМОВЛЕННЯ' : 'ШВИДКЕ ЗАМОВЛЕННЯ'} (React)</b>\n` +
