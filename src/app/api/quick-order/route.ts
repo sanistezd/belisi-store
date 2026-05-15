@@ -13,15 +13,15 @@ export async function POST(req: Request) {
     const { name, phone, email, city, address, deliveryMethod, comment: orderComment, items, totalPrice } = body;
 
     // 1. Формуємо масив товарів для LP-CRM
-    const products_list: Record<string, any> = {};
+    const products_list: any[] = [];
     const final_strings: string[] = [];
 
     items.forEach((item: any, index: number) => {
-      products_list[(index + 1).toString()] = {
+      products_list.push({
         product_id: "45",
         count: item.quantity,
         price: item.product.price
-      };
+      });
       
       const itemStr = `${item.product.name} x${item.quantity}`;
       final_strings.push(itemStr);
