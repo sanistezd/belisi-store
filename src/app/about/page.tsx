@@ -13,7 +13,7 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "30px", marginBottom: "40px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "30px", marginBottom: "40px" }}>
         <div style={{ padding: "30px", background: "#fff", border: "1px solid var(--border)", borderRadius: "16px", textAlign: "center", boxShadow: "var(--shadow-sm)" }}>
           <h3 style={{ fontSize: "1.5rem", marginBottom: "15px", color: "var(--primary)" }}>Преміальна якість</h3>
           <p style={{ color: "var(--text-secondary)" }}>Унікальна рецептура та ідеально збалансований смак. Наша продукція має всі необхідні сертифікати якості.</p>
