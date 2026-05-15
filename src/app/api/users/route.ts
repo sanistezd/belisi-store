@@ -1,20 +1,14 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import fs from 'fs';
-import path from 'path';
 import bcrypt from 'bcryptjs';
 import { SignJWT, jwtVerify } from 'jose';
+import { getDbData, setDbData } from '@/lib/db';
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'fallback_secret');
 
 export async function GET() {
   try {
-    const filePath = path.join(process.cwd(), 'src/data/users.json');
-    if (!fs.existsSync(filePath)) {
-      return NextResponse.json([]);
-    }
-    const data = fs.readFileSync(filePath, 'utf8');
-    const users = JSON.parse(data || '[]');
+    const users = await getDbData('users', 'users.json');
     // Remove password hashes from response
     const sanitizedUsers = users.map((u: any) => {
       const { passwordHash, ...rest } = u;
@@ -35,11 +29,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
     }
 
-    const filePath = path.join(process.cwd(), 'src/data/users.json');
-    let users = [];
-    if (fs.existsSync(filePath)) {
-      users = JSON.parse(fs.readFileSync(filePath, 'utf8') || '[]');
-    }
+    const users = await getDbData('users', 'users.json');
 
     // Login action
     if (action === 'login') {
@@ -89,7 +79,7 @@ export async function POST(request: Request) {
       };
       
       users.push(newUser);
-      fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf8');
+      await setDbData('users', users, 'users.json');
       
       // Generate JWT
       const token = await new SignJWT({ id: newUser.id, email: newUser.email, role: newUser.role })

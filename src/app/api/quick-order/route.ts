@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { serialize } from 'php-serialize';
+import { getDbData, setDbData } from '@/lib/db';
 
 const CRM_URL = process.env.CRM_URL || "";
 const CRM_KEY = process.env.CRM_KEY || "";
@@ -83,15 +84,9 @@ export async function POST(req: Request) {
       })
     });
 
-    // 3. Збереження в локальний JSON для відображення в адмінці
+    // 3. Збереження в базу (Redis / JSON fallback) для відображення в адмінці
     try {
-      const fs = require('fs');
-      const path = require('path');
-      const ordersPath = path.join(process.cwd(), 'src/data/orders.json');
-      let localOrders = [];
-      if (fs.existsSync(ordersPath)) {
-        localOrders = JSON.parse(fs.readFileSync(ordersPath, 'utf8') || '[]');
-      }
+      const localOrders = await getDbData('orders', 'orders.json');
       
       const newOrder = {
         id: Math.random().toString(36).substring(2, 9),
@@ -104,9 +99,9 @@ export async function POST(req: Request) {
       };
       
       localOrders.unshift(newOrder); // Add to top
-      fs.writeFileSync(ordersPath, JSON.stringify(localOrders, null, 2), 'utf8');
-    } catch (fsError) {
-      console.error('Failed to save order locally:', fsError);
+      await setDbData('orders', localOrders, 'orders.json');
+    } catch (dbError) {
+      console.error('Failed to save order to db:', dbError);
     }
 
     return NextResponse.json({ success: true });

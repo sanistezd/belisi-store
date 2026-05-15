@@ -1,15 +1,10 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { getDbData, setDbData } from '@/lib/db';
 
 export async function GET() {
   try {
-    const filePath = path.join(process.cwd(), 'src/data/orders.json');
-    if (!fs.existsSync(filePath)) {
-      return NextResponse.json([]);
-    }
-    const data = fs.readFileSync(filePath, 'utf8');
-    return NextResponse.json(JSON.parse(data || '[]'));
+    const orders = await getDbData('orders', 'orders.json');
+    return NextResponse.json(orders);
   } catch (error) {
     return NextResponse.json({ error: 'Failed to read orders' }, { status: 500 });
   }
@@ -19,20 +14,14 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const { id, status } = await request.json();
-    const filePath = path.join(process.cwd(), 'src/data/orders.json');
     
-    if (!fs.existsSync(filePath)) {
-      return NextResponse.json({ error: 'Orders not found' }, { status: 404 });
-    }
-    
-    const data = fs.readFileSync(filePath, 'utf8');
-    const orders = JSON.parse(data || '[]');
+    const orders = await getDbData('orders', 'orders.json');
     
     const updatedOrders = orders.map((order: any) => 
       order.id === id ? { ...order, status } : order
     );
     
-    fs.writeFileSync(filePath, JSON.stringify(updatedOrders, null, 2), 'utf8');
+    await setDbData('orders', updatedOrders, 'orders.json');
     
     return NextResponse.json({ success: true });
   } catch (error) {
