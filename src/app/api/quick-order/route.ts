@@ -31,39 +31,47 @@ export async function POST(req: Request) {
     const orderTypeLabel = isFullCheckout ? 'Повне замовлення' : 'Швидке замовлення';
     const crmComment = `${final_strings.join(', ')}\n(${orderTypeLabel} з React)\nКлієнт: ${orderComment || ''}`;
 
-    // Формуємо FormData для CRM (аналог PHP cURL multipart/form-data)
-    const formData = new FormData();
+    // Формуємо FormData для CRM
+    const formData = new URLSearchParams();
     formData.append('key', CRM_KEY);
     formData.append('order_id', Math.floor(Math.random() * 1000000).toString());
     formData.append('country', 'UA');
     formData.append('office', '1');
+    
+    // В PHP було urlencode(serialize($products_list)). 
+    // Оскільки URLSearchParams теж робить urlencode, ми робимо подвійний encodeURIComponent, 
+    // щоб на сервері CRM після розшифровки залишився urlencode-рядок, якщо вони викликають urldecode() вручну.
     formData.append('products', encodeURIComponent(serialize(products_list)));
+    
     formData.append('bayer_name', name);
     formData.append('phone', phone);
     if (email) formData.append('email', email);
     if (city && address) formData.append('delivery_adress', `${city}, ${address}`);
-    const dmMap: any = { np_branch: 'Нова Пошта (Відділення)', np_locker: 'Нова Пошта (Поштомат)', ukrpost: 'Укрпошта' };
-    const translatedDeliveryMethod = deliveryMethod ? (dmMap[deliveryMethod] || deliveryMethod) : 'Не вказано';
+    
+    const dmMap: Record<string, string> = { np_branch: 'Нова Пошта (Відділення)', np_locker: 'Нова Пошта (Поштомат)', ukrpost: 'Укрпошта' };
+    const translatedDeliveryMethod = deliveryMethod ? (dmMap[deliveryMethod as keyof typeof dmMap] || deliveryMethod) : 'Не вказано';
 
     if (deliveryMethod) {
       formData.append('delivery', translatedDeliveryMethod);
     }
     formData.append('comment', crmComment);
+    
+    // В PHP був sender = urlencode(serialize($_SERVER)). Додаємо пустий аналог, щоб не було помилок валідації.
+    formData.append('sender', encodeURIComponent(serialize({ HTTP_HOST: 'belisi-store' })));
 
-    let crmDebugText = "No response";
     // Відправка в CRM
     try {
       const crmUrlHttps = CRM_URL.replace('http://', 'https://'); 
       const crmResponse = await fetch(crmUrlHttps, {
         method: 'POST',
-        body: formData
-        // При використанні FormData (multipart/form-data) Content-Type не вказується, fetch додасть його сам з boundary
+        body: formData,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }
       });
       const crmText = await crmResponse.text();
-      crmDebugText = crmText;
       console.log('CRM Response:', crmText);
-    } catch (crmErr: any) {
-      crmDebugText = "Error: " + crmErr.message;
+    } catch (crmErr) {
       console.error('CRM Fetch Error:', crmErr);
     }
 
@@ -79,10 +87,7 @@ export async function POST(req: Request) {
     tgText += `💰 <b>Сума:</b> ${totalPrice} грн\n` +
       `📦 <b>Товари:</b>\n${final_strings.join('\n')}`;
       
-    if (orderComment) tgText += `\n💬 <b>Коментар:</b> ${orderComment}\n`;
-    
-    // ДОДАЄМО ВІДПОВІДЬ CRM В ТЕЛЕГРАМ ДЛЯ ДЕБАГУ
-    tgText += `\n🤖 <b>Відповідь від CRM:</b>\n<code>${crmDebugText}</code>`;
+    if (orderComment) tgText += `\n💬 <b>Коментар:</b> ${orderComment}`;
 
     const tgUrl = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;
     await fetch(tgUrl, {
