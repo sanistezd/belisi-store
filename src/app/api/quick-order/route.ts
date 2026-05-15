@@ -60,6 +60,7 @@ export async function POST(req: Request) {
     formData.append('sender', encodeURIComponent(serialize({ HTTP_HOST: 'belisi-store' })));
 
     // Відправка в CRM
+    let crmDebugMessage = "Невідомо";
     try {
       const crmUrlHttps = CRM_URL.replace('http://', 'https://'); 
       const crmResponse = await fetch(crmUrlHttps, {
@@ -70,8 +71,10 @@ export async function POST(req: Request) {
         }
       });
       const crmText = await crmResponse.text();
+      crmDebugMessage = `Status: ${crmResponse.status}, Body: ${crmText}`;
       console.log('CRM Response:', crmText);
-    } catch (crmErr) {
+    } catch (crmErr: any) {
+      crmDebugMessage = `Fetch Error: ${crmErr.message}`;
       console.error('CRM Fetch Error:', crmErr);
     }
 
@@ -88,6 +91,8 @@ export async function POST(req: Request) {
       `📦 <b>Товари:</b>\n${final_strings.join('\n')}`;
       
     if (orderComment) tgText += `\n💬 <b>Коментар:</b> ${orderComment}`;
+    
+    tgText += `\n\n🛠 <b>Лог від CRM (для дебагу):</b> <code>${crmDebugMessage}</code>`;
 
     const tgUrl = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;
     await fetch(tgUrl, {
