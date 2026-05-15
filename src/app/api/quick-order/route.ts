@@ -28,8 +28,9 @@ export async function POST(req: Request) {
     });
 
     const isFullCheckout = !!city;
-    const orderTypeLabel = isFullCheckout ? 'Повне замовлення' : 'Швидке замовлення';
-    const crmComment = `${final_strings.join(', ')}\n(${orderTypeLabel} з React)\nКлієнт: ${orderComment || ''}`;
+    const crmComment = orderComment 
+      ? `${final_strings.join('\n')}\nКоментар: ${orderComment}`
+      : final_strings.join('\n');
 
     // Формуємо FormData для CRM
     const formData = new URLSearchParams();
@@ -60,27 +61,21 @@ export async function POST(req: Request) {
     formData.append('sender', encodeURIComponent(serialize({ HTTP_HOST: 'belisi-store' })));
 
     // Відправка в CRM
-    let crmDebugMessage = "Невідомо";
     try {
       const crmUrlHttps = CRM_URL.replace('http://', 'https://'); 
-      const crmResponse = await fetch(crmUrlHttps, {
+      await fetch(crmUrlHttps, {
         method: 'POST',
         body: formData,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         }
       });
-      const crmText = await crmResponse.text();
-      const keyDebug = CRM_KEY ? `${CRM_KEY.substring(0, 4)}...` : "ПУСТОЙ!";
-      crmDebugMessage = `Key: ${keyDebug} | Status: ${crmResponse.status}, Body: ${crmText}`;
-      console.log('CRM Response:', crmText);
     } catch (crmErr: any) {
-      crmDebugMessage = `Fetch Error: ${crmErr.message}`;
       console.error('CRM Fetch Error:', crmErr);
     }
 
     // 2. Відправка в Telegram
-    let tgText = `<b>🛒 ${isFullCheckout ? 'НОВЕ ЗАМОВЛЕННЯ' : 'ШВИДКЕ ЗАМОВЛЕННЯ'} (React)</b>\n` +
+    let tgText = `<b>🛒 ${isFullCheckout ? 'НОВЕ ЗАМОВЛЕННЯ' : 'ШВИДКЕ ЗАМОВЛЕННЯ'}</b>\n` +
       `💁🏻‍♂️ <b>Ім'я:</b> ${name}\n` +
       `📱 <b>Телефон:</b> ${phone}\n`;
       
@@ -92,8 +87,6 @@ export async function POST(req: Request) {
       `📦 <b>Товари:</b>\n${final_strings.join('\n')}`;
       
     if (orderComment) tgText += `\n💬 <b>Коментар:</b> ${orderComment}`;
-    
-    tgText += `\n\n🛠 <b>Лог від CRM (для дебагу):</b> <code>${crmDebugMessage}</code>`;
 
     const tgUrl = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;
     await fetch(tgUrl, {
