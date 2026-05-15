@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import { serialize } from 'php-serialize';
 import { getDbData, setDbData } from '@/lib/db';
 
-const CRM_URL = process.env.CRM_URL || "";
-const CRM_KEY = process.env.CRM_KEY || "";
+const CRM_URL = "https://tallfill.lp-crm.biz/api/addNewOrder.html";
+const CRM_KEY = "ecb590414709b5c41659ef2074148b31";
 const TG_TOKEN = process.env.TG_TOKEN || "";
 const TG_CHAT_ID = process.env.TG_CHAT_ID || "";
 
