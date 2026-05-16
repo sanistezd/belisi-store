@@ -72,6 +72,38 @@ export default function AdminPage() {
     }
   };
 
+  const handleImageUpload = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new window.Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+        const MAX_WIDTH = 600;
+
+        if (width > MAX_WIDTH) {
+          height = Math.round((height * MAX_WIDTH) / width);
+          width = MAX_WIDTH;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, width, height);
+        
+        const base64Url = canvas.toDataURL('image/jpeg', 0.85);
+        handleChange(index, 'image', base64Url);
+      };
+      img.src = event.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
+
   const saveProducts = async () => {
     setSaving(true);
     setMessage(null);
@@ -234,6 +266,7 @@ export default function AdminPage() {
                   <tr style={{ background: "var(--bg-subtle)", borderBottom: "1px solid var(--border)", color: "var(--text-secondary)" }}>
                     <th style={{ padding: "20px", textAlign: "left", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>ID / Артикул</th>
                     <th style={{ padding: "20px", textAlign: "left", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>Назва</th>
+                    <th style={{ padding: "20px", textAlign: "left", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>Фото</th>
                     <th style={{ padding: "20px", textAlign: "left", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>Ціна (₴)</th>
                     <th style={{ padding: "20px", textAlign: "left", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>Стара ціна (₴)</th>
                     <th style={{ padding: "20px", textAlign: "center", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>В наявності</th>
@@ -260,6 +293,15 @@ export default function AdminPage() {
                           onChange={(e) => handleChange(index, 'name', e.target.value)}
                           style={{ width: "100%", minWidth: "150px", padding: "10px", borderRadius: "8px", border: "1px solid var(--border)", fontWeight: "bold", fontSize: "1rem", color: "var(--text)", background: "white" }}
                         />
+                      </td>
+                      <td style={{ padding: "20px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                          <img src={product.image} alt="preview" style={{ width: "40px", height: "40px", objectFit: "cover", borderRadius: "6px", border: "1px solid var(--border)" }} />
+                          <label style={{ cursor: "pointer", background: "var(--bg-subtle)", padding: "8px 12px", borderRadius: "8px", border: "1px solid var(--border)", fontSize: "0.85rem", fontWeight: "bold", whiteSpace: "nowrap" }}>
+                            Завантажити
+                            <input type="file" accept="image/*" style={{ display: "none" }} onChange={(e) => handleImageUpload(index, e)} />
+                          </label>
+                        </div>
                       </td>
                       <td style={{ padding: "20px" }}>
                         <input 
