@@ -1,9 +1,13 @@
-import { defaultProducts } from "@/data/products";
+import { getDbData } from "@/lib/db";
 import ProductCard from "@/components/ProductCard";
 import PromoBanner from "@/components/PromoBanner";
+import { Product } from "@/data/products";
 
-export default function Home() {
-  const caviarProducts = defaultProducts.filter(p => p.category !== "promo");
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+  const products: Product[] = await getDbData('products', 'products.json');
+  const caviarProducts = products.filter((p: Product) => p.category !== "promo");
 
   return (
     <div>

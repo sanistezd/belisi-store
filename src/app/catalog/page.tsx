@@ -1,10 +1,12 @@
-"use client";
-
-import { defaultProducts } from "@/data/products";
+import { getDbData } from "@/lib/db";
 import ProductCard from "@/components/ProductCard";
+import { Product } from "@/data/products";
 
-export default function CatalogPage() {
-  const catalogProducts = defaultProducts.filter(p => p.category !== "promo");
+export const dynamic = 'force-dynamic';
+
+export default async function CatalogPage() {
+  const products: Product[] = await getDbData('products', 'products.json');
+  const catalogProducts = products.filter((p: Product) => p.category !== "promo");
 
   return (
     <div className="container" style={{ padding: "60px 20px" }}>

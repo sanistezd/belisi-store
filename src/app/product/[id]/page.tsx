@@ -1,17 +1,32 @@
 "use client";
 
-import { defaultProducts } from "@/data/products";
+import { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function ProductPage({ params }: { params: { id: string } }) {
-  const product = defaultProducts.find(p => p.id === params.id);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
   const { addToCart, setIsCartOpen } = useCart();
   const router = useRouter();
 
   const [quantity, setQuantity] = useState(1);
   const [packaging, setPackaging] = useState("vacuum");
+
+  useEffect(() => {
+    fetch('/api/admin/products')
+      .then(r => r.json())
+      .then(data => {
+        setProduct(data.find((p: Product) => p.id === params.id) || null);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [params.id]);
+
+  if (loading) {
+    return <div className="container" style={{ padding: "100px 20px", textAlign: "center" }}>Завантаження...</div>;
+  }
 
   if (!product) {
     return (
