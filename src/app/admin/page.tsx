@@ -212,7 +212,6 @@ export default function AdminPage() {
                   <tr style={{ background: "var(--bg-subtle)", borderBottom: "1px solid var(--border)", color: "var(--text-secondary)" }}>
                     <th style={{ padding: "20px", textAlign: "left", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>ID / Артикул</th>
                     <th style={{ padding: "20px", textAlign: "left", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>Назва</th>
-                    <th style={{ padding: "20px", textAlign: "left", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>Фото (URL)</th>
                     <th style={{ padding: "20px", textAlign: "left", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>Ціна (₴)</th>
                     <th style={{ padding: "20px", textAlign: "left", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>Стара ціна (₴)</th>
                     <th style={{ padding: "20px", textAlign: "center", fontWeight: 600, fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "0.5px" }}>В наявності</th>
@@ -238,18 +237,6 @@ export default function AdminPage() {
                           onChange={(e) => handleChange(index, 'name', e.target.value)}
                           style={{ width: "100%", minWidth: "150px", padding: "10px", borderRadius: "8px", border: "1px solid var(--border)", fontWeight: "bold", fontSize: "1rem", color: "var(--text)", background: "white" }}
                         />
-                      </td>
-                      <td style={{ padding: "20px" }}>
-                        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                          <img src={product.image} alt="preview" style={{ width: "40px", height: "40px", objectFit: "cover", borderRadius: "6px", border: "1px solid var(--border)" }} />
-                          <input 
-                            type="text" 
-                            placeholder="/images/photo.png"
-                            value={product.image || ''} 
-                            onChange={(e) => handleChange(index, 'image', e.target.value)}
-                            style={{ width: "150px", padding: "10px", borderRadius: "8px", border: "1px solid var(--border)", fontSize: "0.9rem", background: "white" }}
-                          />
-                        </div>
                       </td>
                       <td style={{ padding: "20px" }}>
                         <input 
