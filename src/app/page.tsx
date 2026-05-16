@@ -3,7 +3,7 @@ import ProductCard from "@/components/ProductCard";
 import PromoBanner from "@/components/PromoBanner";
 import { Product } from "@/data/products";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export default async function Home() {
   const products: Product[] = await getDbData('products', 'products.json');

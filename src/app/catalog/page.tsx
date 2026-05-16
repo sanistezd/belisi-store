@@ -2,7 +2,7 @@ import { getDbData } from "@/lib/db";
 import ProductCard from "@/components/ProductCard";
 import { Product } from "@/data/products";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export default async function CatalogPage() {
   const products: Product[] = await getDbData('products', 'products.json');
