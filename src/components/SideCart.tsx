@@ -28,10 +28,6 @@ export default function SideCart() {
       if (response.ok) {
         setOrderStatus("success");
         clearCart();
-        setTimeout(() => {
-          setIsCartOpen(false);
-          setOrderStatus("idle");
-        }, 3000);
       } else {
         setOrderStatus("error");
       }
@@ -79,7 +75,18 @@ export default function SideCart() {
         </div>
 
         <div className="widget_shopping_cart_content" style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column" }}>
-          {items.length === 0 ? (
+          {orderStatus === "success" ? (
+             <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "40px 20px", textAlign: "center" }}>
+               <div style={{ background: "var(--green)", color: "white", width: "80px", height: "80px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+               </div>
+               <h2 style={{ fontSize: "2rem", marginBottom: "15px", color: "var(--text)" }}>Дякуємо за замовлення!</h2>
+               <p style={{ fontSize: "1.1rem", color: "var(--text-secondary)", marginBottom: "30px" }}>
+                 Ваше замовлення успішно отримано. Наш менеджер зв&apos;яжеться з вами найближчим часом для підтвердження.
+               </p>
+               <button className="button" style={{ padding: "15px 30px", fontSize: "1.1rem", borderRadius: "8px", width: "100%" }} onClick={() => { setIsCartOpen(false); setOrderStatus("idle"); router.push("/"); }}>Повернутися до магазину</button>
+             </div>
+          ) : items.length === 0 ? (
             <p className="woocommerce-mini-cart__empty-message" style={{ textAlign: "center", marginTop: "50px", color: "var(--text-secondary)" }}>Кошик порожній.</p>
           ) : (
             <>
@@ -116,11 +123,6 @@ export default function SideCart() {
                   <span className="woocommerce-Price-amount amount"><bdi>{totalPrice}&nbsp;<span className="woocommerce-Price-currencySymbol">₴</span></bdi></span>
                 </p>
 
-                {orderStatus === "success" ? (
-                  <div style={{ padding: "20px", background: "var(--green)", color: "white", borderRadius: "8px", textAlign: "center", fontWeight: "bold" }}>
-                    Замовлення успішно оформлено! Ми вам зателефонуємо.
-                  </div>
-                ) : (
                   <form onSubmit={handleOrder} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                     <input 
                       type="text" 
@@ -148,7 +150,6 @@ export default function SideCart() {
                       </button>
                     </div>
                   </form>
-                )}
                 {orderStatus === "error" && (
                   <p style={{ color: "var(--red)", marginTop: "10px", textAlign: "center" }}>Помилка відправки. Спробуйте ще раз.</p>
                 )}
