@@ -341,19 +341,34 @@ li.product .button {
 
 @media (max-width: 768px) {
     .premium-hero {
-        background-position: right 30%;
-        padding: 80px 20px 400px 20px;
+        background: url('/images/hero-bg.jpg') no-repeat bottom right;
+        background-color: #efe6dc;
+        background-size: 220% auto;
+        padding: 50px 20px 380px 20px;
+        min-height: auto;
     }
     .premium-hero-content {
         max-width: 100%;
-        background: rgba(255, 255, 255, 0.85);
-        padding: 24px;
-        border-radius: 16px;
-        text-align: left;
-        backdrop-filter: blur(10px);
+        background: transparent;
+        padding: 0;
+        text-align: center;
+        backdrop-filter: none;
     }
     .hero-top-text {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+        margin-bottom: 16px;
+    }
+    .premium-hero-desc {
+        font-size: 1.1rem;
+        color: #222;
+        font-weight: 600;
+        margin-bottom: 24px;
+        text-shadow: 0 1px 3px rgba(255,255,255,0.7);
+    }
+    .premium-hero-btn {
+        width: 100%;
+        padding: 16px 20px !important;
+        font-size: 1.2rem !important;
     }
 }
 
