@@ -11,6 +11,17 @@
     "inStock": true
   },
   {
+    "id": "caviar-osetr-vacuum",
+    "sku": "9",
+    "name": "Ікра Осетра 500г (Вакуум)",
+    "price": 529,
+    "oldPrice": 582,
+    "image": "/images/caviar-osetr-vacuum.jpg",
+    "description": "Справжня чорна ікра осетра в преміальній скляній банці. Ніжний смак розкоші. У зручному вакуумному пакуванні.",
+    "category": "vacuum",
+    "inStock": true
+  },
+  {
     "id": "caviar-veslonis",
     "sku": "9",
     "name": "Ікра Веслоноса 500г",
@@ -19,6 +30,17 @@
     "image": "/images/veslonis.png",
     "description": "Чорна ікра веслоноса. Витончений смак, який оцінять справжні гурмани.",
     "category": "glass",
+    "inStock": true
+  },
+  {
+    "id": "caviar-veslonis-vacuum",
+    "sku": "9",
+    "name": "Ікра Веслоноса 500г (Вакуум)",
+    "price": 499,
+    "oldPrice": 549,
+    "image": "/images/caviar-veslonis-vacuum.jpg",
+    "description": "Чорна ікра веслоноса. Витончений смак, який оцінять справжні гурмани. У зручному вакуумному пакуванні.",
+    "category": "vacuum",
     "inStock": true
   },
   {
@@ -33,6 +55,17 @@
     "inStock": true
   },
   {
+    "id": "caviar-gorbusha-vacuum",
+    "sku": "8",
+    "name": "Ікра Горбуші 500г (Вакуум)",
+    "price": 399,
+    "oldPrice": 439,
+    "image": "/images/caviar-gorbusha-vacuum.jpg",
+    "description": "Класична червона ікра горбуші. Ідеально підходить для святкового столу. У зручному вакуумному пакуванні.",
+    "category": "vacuum",
+    "inStock": true
+  },
+  {
     "id": "caviar-keta",
     "sku": "6",
     "name": "Ікра Кети 500г",
@@ -41,6 +74,17 @@
     "image": "/images/keta.png",
     "description": "Червона ікра кети з великими ікринками. Насичений смак та неймовірний аромат.",
     "category": "glass",
+    "inStock": true
+  },
+  {
+    "id": "caviar-keta-vacuum",
+    "sku": "6",
+    "name": "Ікра Кети 500г (Вакуум)",
+    "price": 479,
+    "oldPrice": 527,
+    "image": "/images/caviar-keta-vacuum.jpg",
+    "description": "Червона ікра кети з великими ікринками. Насичений смак та неймовірний аромат. У зручному вакуумному пакуванні.",
+    "category": "vacuum",
     "inStock": true
   },
   {
@@ -55,6 +99,17 @@
     "inStock": true
   },
   {
+    "id": "caviar-schuka-vacuum",
+    "sku": "5",
+    "name": "Ікра Щуки 500г (Вакуум)",
+    "price": 379,
+    "oldPrice": 417,
+    "image": "/images/caviar-schuka-vacuum.jpg",
+    "description": "Традиційна ікра щуки. Чудова закуска з м'яким делікатним смаком. У зручному вакуумному пакуванні.",
+    "category": "vacuum",
+    "inStock": true
+  },
+  {
     "id": "caviar-losos",
     "sku": "7",
     "name": "Ікра Лосося 500г",
@@ -63,6 +118,17 @@
     "image": "/images/losos.png",
     "description": "Преміальна ікра лосося. Ніжна текстура та багатий смак, що тане в роті.",
     "category": "glass",
+    "inStock": true
+  },
+  {
+    "id": "caviar-losos-vacuum",
+    "sku": "7",
+    "name": "Ікра Лосося 500г (Вакуум)",
+    "price": 459,
+    "oldPrice": 505,
+    "image": "/images/caviar-losos-vacuum.jpg",
+    "description": "Преміальна ікра лосося. Ніжна текстура та багатий смак, що тане в роті. У зручному вакуумному пакуванні.",
+    "category": "vacuum",
     "inStock": true
   },
   {
