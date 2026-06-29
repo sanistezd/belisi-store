@@ -260,9 +260,10 @@ export default function Header() {
           .desktop-only { display: none !important; }
           .header-cart-wrapper { border-left: none !important; padding-left: 0 !important; }
           .mobile-menu-toggle { display: block !important; }
-          .header-logo { flex: 2.5 !important; }
-          .header-actions { flex: 1 !important; justify-content: flex-end !important; gap: 10px !important; }
-          .main-logo-img { height: 45px !important; }
+          .mobile-only { flex: 0 0 50px !important; }
+          .header-logo { flex: 1 !important; }
+          .header-actions { flex: 0 0 70px !important; justify-content: flex-end !important; gap: 10px !important; }
+          .main-logo-img { height: 60px !important; }
         }
       `}</style>
     </header>
