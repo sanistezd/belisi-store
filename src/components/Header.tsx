@@ -48,12 +48,13 @@ export default function Header() {
 
           {/* LOGO */}
           <div className="header-logo" style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-            <div style={{ textAlign: 'center' }}>
-              <Link href="/" style={{ textDecoration: 'none', display: 'inline-block', padding: '0 20px' }}>
+            <div style={{ textAlign: 'center', width: '100%' }}>
+              <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>
                 <img 
                   src="/images/logo.png" 
                   alt="Belisi Premium Caviar Logo" 
-                  style={{ height: '75px', width: 'auto', objectFit: 'contain' }} 
+                  className="main-logo-img"
+                  style={{ width: '180px', height: 'auto', objectFit: 'contain' }} 
                 />
               </Link>
             </div>
@@ -250,12 +251,16 @@ export default function Header() {
             opacity: 1 !important;
             color: var(--primary) !important;
         }
+        .main-logo-img {
+          width: 180px !important;
+        }
         @media (max-width: 768px) {
           .desktop-only { display: none !important; }
           .header-cart-wrapper { border-left: none !important; padding-left: 0 !important; }
           .mobile-menu-toggle { display: block !important; }
-          .header-logo { flex: 2 !important; }
+          .header-logo { flex: 2.5 !important; }
           .header-actions { flex: 1 !important; justify-content: flex-end !important; gap: 10px !important; }
+          .main-logo-img { width: 140px !important; }
         }
       `}</style>
     </header>
