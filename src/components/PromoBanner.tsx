@@ -6,7 +6,12 @@ import { useCart } from "@/context/CartContext";
 
 export default function PromoBanner() {
   const { addToCart } = useCart();
-  const [selectedCaviar, setSelectedCaviar] = useState<string[]>(["", "", "", ""]);
+  const [selectedCaviar, setSelectedCaviar] = useState<string[]>([
+    "caviar-keta", 
+    "caviar-losos", 
+    "caviar-gorbusha", 
+    "caviar-osetr"
+  ]);
   const [packaging, setPackaging] = useState("vacuum");
   const basePrice = 998;
   const extraCost = 200;
@@ -113,15 +118,40 @@ export default function PromoBanner() {
           ))}
         </div>
 
-        <select 
-          className="packaging_type_loop"
-          value={packaging} 
-          onChange={(e) => setPackaging(e.target.value)}
-          style={{ margin: "0 0 16px", padding: "12px 14px", borderRadius: "8px", width: "100%", border: "1px solid #ddd", background: "#fff url('data:image/svg+xml;utf8,<svg xmlns=%27http://www.w3.org/2000/svg%27 width=%2716%27 height=%2716%27 fill=%27%23333%27 viewBox=%270 0 16 16%27><path d=%27M8 11.5l-5-5h10l-5 5z%27/></svg>') no-repeat right 14px center", backgroundSize: "12px", color: "#333", fontSize: "0.95rem", cursor: "pointer", appearance: "none", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}
-        >
-          <option value="vacuum">Вакуумне пакування (стандарт)</option>
-          <option value="glass">Скляні баночки (+200 грн)</option>
-        </select>
+        <div style={{ display: "flex", gap: "10px", marginBottom: "16px" }}>
+          <button
+            onClick={() => setPackaging("vacuum")}
+            style={{
+              flex: 1,
+              padding: "12px",
+              borderRadius: "8px",
+              border: packaging === "vacuum" ? "2px solid var(--primary)" : "1px solid #ddd",
+              background: packaging === "vacuum" ? "var(--bg-subtle)" : "#fff",
+              color: packaging === "vacuum" ? "var(--primary)" : "#333",
+              fontWeight: packaging === "vacuum" ? "bold" : "normal",
+              cursor: "pointer",
+              transition: "all 0.2s"
+            }}
+          >
+            Вакуум
+          </button>
+          <button
+            onClick={() => setPackaging("glass")}
+            style={{
+              flex: 1,
+              padding: "12px",
+              borderRadius: "8px",
+              border: packaging === "glass" ? "2px solid var(--primary)" : "1px solid #ddd",
+              background: packaging === "glass" ? "var(--bg-subtle)" : "#fff",
+              color: packaging === "glass" ? "var(--primary)" : "#333",
+              fontWeight: packaging === "glass" ? "bold" : "normal",
+              cursor: "pointer",
+              transition: "all 0.2s"
+            }}
+          >
+            Скло (+200 грн)
+          </button>
+        </div>
 
         <div className="promo-price price" style={{ marginBottom: "16px" }}>
           <del aria-hidden="true"><span className="woocommerce-Price-amount amount"><bdi>1996&nbsp;<span className="woocommerce-Price-currencySymbol">₴</span></bdi></span></del>
