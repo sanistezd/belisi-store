@@ -54,7 +54,7 @@ export default function Header() {
                   src="/images/logo.png" 
                   alt="Belisi Premium Caviar Logo" 
                   className="main-logo-img"
-                  style={{ width: '180px', height: 'auto', objectFit: 'contain' }} 
+                  style={{ height: '60px', width: 'auto', objectFit: 'contain' }} 
                 />
               </Link>
             </div>
@@ -252,7 +252,9 @@ export default function Header() {
             color: var(--primary) !important;
         }
         .main-logo-img {
-          width: 180px !important;
+          height: 60px !important;
+          width: auto !important;
+          max-width: 100% !important;
         }
         @media (max-width: 768px) {
           .desktop-only { display: none !important; }
@@ -260,7 +262,7 @@ export default function Header() {
           .mobile-menu-toggle { display: block !important; }
           .header-logo { flex: 2.5 !important; }
           .header-actions { flex: 1 !important; justify-content: flex-end !important; gap: 10px !important; }
-          .main-logo-img { width: 140px !important; }
+          .main-logo-img { height: 45px !important; }
         }
       `}</style>
     </header>
