@@ -20,6 +20,7 @@ export async function POST(req: Request) {
     formData.append('bayer_name', name);
     formData.append('phone', phone);
     formData.append('comment', `ЗАПИТАННЯ З САЙТУ:\n${question}`);
+    formData.append('sender', encodeURIComponent(serialize({ HTTP_HOST: 'belisi.site' })));
     
     // Формуємо масив товарів, як в основних замовленнях, щоб CRM точно прийняла
     const products_list = [{
