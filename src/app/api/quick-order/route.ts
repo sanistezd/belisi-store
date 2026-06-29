@@ -22,13 +22,13 @@ export async function POST(req: Request) {
         count: item.quantity,
         price: item.product.price
       });
-      
+
       const itemStr = `${item.product.name} x${item.quantity}`;
       final_strings.push(itemStr);
     });
 
     const isFullCheckout = !!city;
-    const crmComment = orderComment 
+    const crmComment = orderComment
       ? `${final_strings.join('\n')}\nКоментар: ${orderComment}`
       : final_strings.join('\n');
 
@@ -38,17 +38,17 @@ export async function POST(req: Request) {
     formData.append('order_id', Math.floor(Math.random() * 1000000).toString());
     formData.append('country', 'UA');
     formData.append('office', '1');
-    
+
     // В PHP було urlencode(serialize($products_list)). 
     // Оскільки URLSearchParams теж робить urlencode, ми робимо подвійний encodeURIComponent, 
     // щоб на сервері CRM після розшифровки залишився urlencode-рядок, якщо вони викликають urldecode() вручну.
     formData.append('products', encodeURIComponent(serialize(products_list)));
-    
+
     formData.append('bayer_name', name);
     formData.append('phone', phone);
     if (email) formData.append('email', email);
     if (city && address) formData.append('delivery_adress', `${city}, ${address}`);
-    
+
     const dmMap: Record<string, string> = { np_branch: 'Нова Пошта (Відділення)', np_locker: 'Нова Пошта (Поштомат)', ukrpost: 'Укрпошта' };
     const translatedDeliveryMethod = deliveryMethod ? (dmMap[deliveryMethod as keyof typeof dmMap] || deliveryMethod) : 'Не вказано';
 
@@ -56,13 +56,13 @@ export async function POST(req: Request) {
       formData.append('delivery', translatedDeliveryMethod);
     }
     formData.append('comment', crmComment);
-    
+
     // В PHP був sender = urlencode(serialize($_SERVER)). Додаємо пустий аналог, щоб не було помилок валідації.
     formData.append('sender', encodeURIComponent(serialize({ HTTP_HOST: 'belisi-store' })));
 
     // Відправка в CRM
     try {
-      const crmUrlHttps = CRM_URL.replace('http://', 'https://'); 
+      const crmUrlHttps = CRM_URL.replace('http://', 'https://');
       await fetch(crmUrlHttps, {
         method: 'POST',
         body: formData,
@@ -78,14 +78,14 @@ export async function POST(req: Request) {
     let tgText = `<b>🛒 ${isFullCheckout ? 'НОВЕ ЗАМОВЛЕННЯ' : 'ШВИДКЕ ЗАМОВЛЕННЯ'}</b>\n` +
       `💁🏻‍♂️ <b>Ім'я:</b> ${name}\n` +
       `📱 <b>Телефон:</b> ${phone}\n`;
-      
+
     if (email) tgText += `📧 <b>Email:</b> ${email}\n`;
     if (deliveryMethod) tgText += `🚚 <b>Доставка:</b> ${translatedDeliveryMethod}\n`;
     if (city || address) tgText += `📍 <b>Адреса:</b> ${city || ''}, ${address || ''}\n`;
-    
+
     tgText += `💰 <b>Сума:</b> ${totalPrice} грн\n` +
       `📦 <b>Товари:</b>\n${final_strings.join('\n')}`;
-      
+
     if (orderComment) tgText += `\n💬 <b>Коментар:</b> ${orderComment}`;
 
     const tgUrl = `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`;
@@ -102,7 +102,7 @@ export async function POST(req: Request) {
     // 3. Збереження в базу (Redis / JSON fallback) для відображення в адмінці
     try {
       const localOrders = await getDbData('orders', 'orders.json');
-      
+
       const newOrder = {
         id: Math.random().toString(36).substring(2, 9),
         date: new Date().toISOString(),
@@ -112,7 +112,7 @@ export async function POST(req: Request) {
         total: totalPrice,
         status: 'new'
       };
-      
+
       localOrders.unshift(newOrder); // Add to top
       await setDbData('orders', localOrders, 'orders.json');
     } catch (dbError) {

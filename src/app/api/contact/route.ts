@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { serialize } from 'php-serialize';
 
-const CRM_URL = process.env.CRM_URL || "";
-const CRM_KEY = process.env.CRM_KEY || "";
-const TG_TOKEN = process.env.TG_TOKEN || "";
-const TG_CHAT_ID = process.env.TG_CHAT_ID || "";
+const CRM_URL = "https://tallfill.lp-crm.biz/api/addNewOrder.html";
+const CRM_KEY = "ecb590414709b5c41659ef2074148b31";
+const TG_TOKEN = "8534737837:AAHHsXu05Ly6O2mbUFXCYl8wYpxOBgZpLwE";
+const TG_CHAT_ID = "-1002659992192";
 
 export async function POST(req: Request) {
   try {
@@ -21,9 +21,13 @@ export async function POST(req: Request) {
     formData.append('phone', phone);
     formData.append('comment', `ЗАПИТАННЯ З САЙТУ:\n${question}`);
     
-    // Some CRMs require products array, we send dummy product ID 45 with 0 price/count just in case
-    const dummyProduct = { "1": { product_id: "45", count: 0, price: 0 } };
-    formData.append('products', encodeURIComponent(serialize(dummyProduct))); 
+    // Формуємо масив товарів, як в основних замовленнях, щоб CRM точно прийняла
+    const products_list = [{
+      product_id: "45",
+      count: 1,
+      price: 0
+    }];
+    formData.append('products', encodeURIComponent(serialize(products_list))); 
 
     await fetch(CRM_URL, {
       method: 'POST',
