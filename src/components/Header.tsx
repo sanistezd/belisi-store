@@ -263,7 +263,7 @@ export default function Header() {
           .mobile-only { flex: 0 0 50px !important; }
           .header-logo { flex: 1 !important; }
           .header-actions { flex: 0 0 70px !important; justify-content: flex-end !important; gap: 10px !important; }
-          .main-logo-img { height: 60px !important; }
+          .main-logo-img { height: 65px !important; }
         }
       `}</style>
     </header>
