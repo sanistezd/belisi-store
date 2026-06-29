@@ -36,7 +36,7 @@ export default function Header() {
         <div className="container" style={{
           display: 'flex',
           alignItems: 'center',
-          padding: '10px 20px',
+          padding: '0 20px',
           justifyContent: 'space-between'
         }}>
           {/* Mobile Menu Toggle */}
@@ -53,7 +53,7 @@ export default function Header() {
                 <img 
                   src="/images/logo.png" 
                   alt="Belisi Premium Caviar Logo" 
-                  style={{ height: '60px', width: 'auto', objectFit: 'contain' }} 
+                  style={{ height: '100px', width: 'auto', objectFit: 'contain', margin: '-15px 0' }} 
                 />
               </Link>
             </div>
