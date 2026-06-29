@@ -53,7 +53,7 @@ export default function Header() {
                 <img 
                   src="/images/logo.png" 
                   alt="Belisi Premium Caviar Logo" 
-                  style={{ height: '50px', width: 'auto', objectFit: 'contain' }} 
+                  style={{ height: '75px', width: 'auto', objectFit: 'contain' }} 
                 />
               </Link>
             </div>
