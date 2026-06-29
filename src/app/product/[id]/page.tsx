@@ -12,7 +12,6 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const router = useRouter();
 
   const [quantity, setQuantity] = useState(1);
-  const [packaging, setPackaging] = useState("vacuum");
 
   useEffect(() => {
     fetch('/api/admin/products')
@@ -37,15 +36,10 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     );
   }
 
-  const extraPrice = packaging === "glass" ? 50 : 0;
-  const currentPrice = product.price + extraPrice;
-
   const handleBuy = () => {
     addToCart({
       ...product,
-      id: `${product.id}-${packaging}`,
-      price: currentPrice,
-      name: `${product.name} (${packaging === "glass" ? "Скло" : "Вакуум"})`
+      price: product.price
     }, quantity);
     setIsCartOpen(true);
   };
@@ -70,36 +64,17 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           <div style={{ fontSize: "2rem", fontWeight: 800, color: "var(--primary)", marginBottom: "30px", display: "flex", alignItems: "center", gap: "16px" }}>
             {product.oldPrice && (
               <del aria-hidden="true" style={{ fontSize: "1.3rem", color: "var(--text-secondary)", opacity: 0.6, fontWeight: 500 }}>
-                {product.oldPrice + extraPrice} ₴
+                {product.oldPrice} ₴
               </del>
             )}
-            <span>{currentPrice} ₴</span>
+            <span>{product.price} ₴</span>
           </div>
 
           <p style={{ fontSize: "1.1rem", lineHeight: "1.6", color: "var(--text-secondary)", marginBottom: "30px" }}>
             {product.description}
           </p>
 
-          {product.category !== "promo" && (
-            <div style={{ marginBottom: "30px" }}>
-              <label style={{ display: "block", marginBottom: "10px", fontWeight: "bold" }}>Пакування:</label>
-              <select 
-                value={packaging} 
-                onChange={(e) => setPackaging(e.target.value)}
-                style={{ 
-                  width: "100%", 
-                  padding: "14px 16px", 
-                  borderRadius: "10px", 
-                  border: "1px solid var(--border)",
-                  fontSize: "1rem",
-                  background: "var(--bg-subtle)"
-                }}
-              >
-                <option value="vacuum">Вакуум (стандарт)</option>
-                <option value="glass">Скляна банка (+50 грн)</option>
-              </select>
-            </div>
-          )}
+          {/* Removed packaging selector */}
 
           <div style={{ display: "flex", gap: "20px", marginBottom: "30px" }}>
             <div style={{ display: "flex", alignItems: "center", border: "1px solid var(--border)", borderRadius: "10px", background: "var(--bg-subtle)" }}>

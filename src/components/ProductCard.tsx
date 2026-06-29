@@ -7,20 +7,14 @@ import { useRouter } from "next/navigation";
 
 export default function ProductCard({ product }: { product: Product }) {
   const { addToCart } = useCart();
-  const [packaging, setPackaging] = useState("vacuum");
   const router = useRouter();
   
-  const extraPrice = packaging === "glass" ? 50 : 0;
-  const currentPrice = product.price + extraPrice;
-
   const handleBuy = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
     addToCart({
       ...product,
-      id: `${product.id}-${packaging}`,
-      price: currentPrice,
-      name: `${product.name} (${packaging === "glass" ? "Скло" : "Вакуум"})`
+      price: product.price
     });
   };
 
@@ -41,28 +35,17 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.oldPrice && (
             <del aria-hidden="true" style={{ opacity: 0.5, marginRight: '8px', fontSize: '0.9em' }}>
               <span className="woocommerce-Price-amount amount">
-                <bdi>{product.oldPrice + extraPrice}&nbsp;<span className="woocommerce-Price-currencySymbol">₴</span></bdi>
+                <bdi>{product.oldPrice}&nbsp;<span className="woocommerce-Price-currencySymbol">₴</span></bdi>
               </span>
             </del>
           )}
           <ins style={{ textDecoration: 'none' }}>
             <span className="woocommerce-Price-amount amount" style={{ color: product.oldPrice ? 'var(--primary)' : 'inherit', fontWeight: product.oldPrice ? 800 : 'inherit' }}>
-              <bdi>{currentPrice}&nbsp;<span className="woocommerce-Price-currencySymbol">₴</span></bdi>
+              <bdi>{product.price}&nbsp;<span className="woocommerce-Price-currencySymbol">₴</span></bdi>
             </span>
           </ins>
         </span>
       </a>
-
-      <div className="custom-packaging-field-loop" onClick={(e) => e.stopPropagation()} style={{ marginTop: "10px", width: "100%" }}>
-        <select 
-          className="packaging_type_loop"
-          value={packaging} 
-          onChange={(e) => setPackaging(e.target.value)}
-        >
-          <option value="vacuum">Вакуум (станд.)</option>
-          <option value="glass">Скло (+50 ₴)</option>
-        </select>
-      </div>
 
       <button 
         className="button add_to_cart_button ajax_add_to_cart"
