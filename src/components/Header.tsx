@@ -36,7 +36,7 @@ export default function Header() {
         <div className="container" style={{
           display: 'flex',
           alignItems: 'center',
-          padding: '10px 20px',
+          padding: '4px 20px',
           justifyContent: 'space-between'
         }}>
           {/* Mobile Menu Toggle */}
