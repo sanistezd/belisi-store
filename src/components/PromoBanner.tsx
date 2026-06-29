@@ -69,7 +69,12 @@ export default function PromoBanner() {
     };
 
     addToCart(customPromoProduct, 1);
-    setSelectedCaviar(["", "", "", ""]);
+    setSelectedCaviar([
+      "caviar-keta", 
+      "caviar-losos", 
+      "caviar-gorbusha", 
+      "caviar-osetr"
+    ]);
   };
 
   return (
