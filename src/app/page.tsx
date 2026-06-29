@@ -15,18 +15,15 @@ export default async function Home() {
       <section className="premium-hero">
         <div className="premium-hero-inner">
           <div className="premium-hero-content">
-            <h1 className="premium-hero-title">
-              <span>Преміальна Ікра· Свіжий Вилов 2026</span>
-            </h1>
+            <div className="hero-top-text">
+              ПРЕМІАЛЬНА ІКРА · СВІЖИЙ ВИЛОВ 2026
+            </div>
             <p className="premium-hero-desc">
               6 видів ікри найвищої якості. Доставка Новою Поштою та Укрпоштою 1-2 дні. Оплата при отриманні — жодних передоплат.
             </p>
-            <a href="#products" className="button" style={{ display: "inline-block" }}>
+            <a href="#products" className="button premium-hero-btn">
               Перейти до каталогу
             </a>
-          </div>
-          <div className="premium-hero-image">
-            <img src="/images/belisi-logo.jpg" alt="Преміальна ікра" style={{ maxWidth: '100%', borderRadius: '50%', boxShadow: '0 10px 40px rgba(0,0,0,0.15)' }} />
           </div>
         </div>
       </section>

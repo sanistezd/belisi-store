@@ -4,66 +4,77 @@
    HERO SECTION
    ========================================================== */
 .premium-hero {
-    background: var(--bg-warm);
-    padding: 80px 20px;
+    background: url('/images/hero-bg.jpg') no-repeat center right;
+    background-size: cover;
+    padding: 140px 20px;
     border-bottom: 1px solid var(--border);
+    position: relative;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
 }
 
 .premium-hero-inner {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 60px;
 }
 
 .premium-hero-content {
-    flex: 1;
+    max-width: 450px;
 }
 
-.premium-hero-title {
-    font-size: 3.2rem;
-    line-height: 1.1;
+.hero-top-text {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #cc4900;
     margin-bottom: 24px;
-    color: var(--text);
-}
-
-.premium-hero-title span {
-    background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    line-height: 1.4;
 }
 
 .premium-hero-desc {
     font-size: 1.15rem;
     line-height: 1.6;
-    color: var(--text-secondary);
+    color: #4a4a4a;
     margin-bottom: 32px;
-    max-width: 90%;
+    font-weight: 500;
 }
 
-.premium-hero-image {
-    flex: 1;
-    text-align: center;
+.premium-hero-btn {
+    display: inline-block;
+    background: #e85d04 !important;
+    border-radius: 30px !important;
+    padding: 16px 40px !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    color: #fff !important;
+    text-transform: none !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(232, 93, 4, 0.3);
 }
 
-.premium-hero-image img {
-    max-width: 100%;
-    border-radius: 50%;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+.premium-hero-btn:hover {
+    background: #cc4900 !important;
+    transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
-    .premium-hero-inner {
-        flex-direction: column-reverse;
-        text-align: center;
-        gap: 40px;
+    .premium-hero {
+        background-position: right 30%;
+        padding: 80px 20px 400px 20px;
     }
-    .premium-hero-title {
-        font-size: 2rem;
-    }
-    .premium-hero-desc {
+    .premium-hero-content {
         max-width: 100%;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 24px;
+        border-radius: 16px;
+        text-align: left;
+        backdrop-filter: blur(10px);
+    }
+    .hero-top-text {
+        font-size: 1.2rem;
     }
 }
 
