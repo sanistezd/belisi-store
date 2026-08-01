@@ -4,7 +4,7 @@ import { getDbData, setDbData } from '@/lib/db';
 
 const CRM_URL = "https://tallfill.lp-crm.biz/api/addNewOrder.html";
 const CRM_KEY = "ecb590414709b5c41659ef2074148b31";
-const TG_TOKEN = "8534737837:AAHHsXu05Ly6O2mbUFXCYl8wYpxOBgZpLwE";
+const TG_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "";
 const TG_CHAT_ID = "-1002659992192";
 
 export async function POST(req: Request) {
